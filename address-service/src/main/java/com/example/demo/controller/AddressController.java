@@ -1,5 +1,8 @@
 package com.example.demo.controller;
 
+import java.util.List;
+import java.util.logging.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,17 +15,26 @@ import com.example.demo.service.AddressService;
 
 @RestController
 public class AddressController {
-	
-	@Autowired
-	private AddressService addressService;
 
-	@GetMapping("/address/{employeeId}")
-	public ResponseEntity<AddressResponse> getAddressByEmployeeId(@PathVariable("employeeId") int employeeId) {
-		
-		AddressResponse addressResponse = addressService.findAddressByEmployeeId(employeeId);
-		
-		return ResponseEntity.status(HttpStatus.OK).body(addressResponse);
-		
-	}
-	
+    @Autowired
+    private AddressService addressService;
+
+    // http://localhost:${ramdon}/address-app/api/address/${employeeId}
+    @GetMapping("/address/{employeeId}")
+    public ResponseEntity<AddressResponse> getAddressByEmployeeId(@PathVariable("employeeId") int employeeId) {
+        Logger.getAnonymousLogger().info("AddressService - " + employeeId);
+        AddressResponse addressResponse = addressService.findAddressByEmployeeId(employeeId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(addressResponse);
+
+    }
+
+    // http://localhost:${ramdon}/address-app/api/address
+    @GetMapping("/address")
+    public ResponseEntity<List<AddressResponse>> findAllAddress() {
+        List<AddressResponse> addressResponses = addressService.findAllAddress();
+
+        return ResponseEntity.status(HttpStatus.OK).body(addressResponses);
+    }
+
 }

@@ -8,7 +8,7 @@ import com.example.demo.entity.Address;
 
 public interface AddressRepository extends JpaRepository<Address, Integer> {
 
-	@Query(nativeQuery = true, value = "SELECT * FROM Address WHERE employee_Id=:employeeId")
-	Address findAddressByEmployeeId(@Param("employeeId") int employeeId);
-	
+    @Query(nativeQuery = true, value = "SELECT * FROM Address WHERE employee_Id=:employeeId")
+    Address findAddressByEmployeeId(@Param("employeeId") int employeeId);
+
 }
